@@ -167,3 +167,5 @@ def health():
 docs = load_documents_from_azure()
 chunks = chunk_documents(docs)
 store_in_pinecone(chunks)
+
+
