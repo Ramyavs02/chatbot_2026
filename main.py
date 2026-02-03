@@ -30,7 +30,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://pdfchatbotrag-g6afgmc5epctggc6.southindia-01.azurewebsites.net"
+        "https://black-water-0a6e4a31e.4.azurestaticapps.net"
     ],
     allow_credentials=True,
     allow_methods=["*"],   # IMPORTANT: allows OPTIONS
@@ -179,6 +179,7 @@ def health():
 docs = load_documents_from_azure()
 chunks = chunk_documents(docs)
 store_in_pinecone(chunks)
+
 
 
 
