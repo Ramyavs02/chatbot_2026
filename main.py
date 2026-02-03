@@ -10,12 +10,11 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from pinecone import Pinecone
 from fastapi import FastAPI
 from pydantic import BaseModel
-from dotenv import load_dotenv
+
 
 
 # ================= CONFIG =================
 
-load_dotenv() 
           
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
@@ -167,5 +166,6 @@ def health():
 docs = load_documents_from_azure()
 chunks = chunk_documents(docs)
 store_in_pinecone(chunks)
+
 
 
