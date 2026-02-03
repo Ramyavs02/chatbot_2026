@@ -9,6 +9,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from pinecone import Pinecone
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 
@@ -24,6 +25,18 @@ AZURE_CONTAINER_NAME = os.getenv("AZURE_BLOB_CONTAINER_NAME")
 
 # ================= FASTAPI =================
 app = FastAPI(title="RAG Support Bot API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://pdfchatbotrag-g6afgmc5epctggc6.southindia-01.azurewebsites.net"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],   # IMPORTANT: allows OPTIONS
+    allow_headers=["*"],
+)
+
 
 class QuestionRequest(BaseModel):
     question: str
@@ -166,6 +179,7 @@ def health():
 docs = load_documents_from_azure()
 chunks = chunk_documents(docs)
 store_in_pinecone(chunks)
+
 
 
 
